@@ -10,15 +10,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.ccp.dependency.injection.CcpDependencyInject;
+import com.ccp.dependency.injection.CcpDependencyInjection;
 import com.ccp.exceptions.commons.CcpFlow;
 import com.ccp.jn.async.business.NotifyError;
 
 @RestControllerAdvice
 public class JnPubSubPushExceptionHandler {
 
-	@CcpDependencyInject
-	private NotifyError notifyError;
+	private NotifyError notifyError = CcpDependencyInjection.getInjected(NotifyError.class);
 
 	@ExceptionHandler({ CcpFlow.class })
 	@ResponseBody

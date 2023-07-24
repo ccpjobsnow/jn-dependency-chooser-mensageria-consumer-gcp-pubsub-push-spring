@@ -21,14 +21,21 @@ public class PubSubConsumerController {
 
 	@PostMapping
 	public void onReceiveMessage(@PathVariable("topic") String topic, @RequestBody Map<String, Object> body) {
-		CcpProcess process = AsyncServices.catalog.getAsObject(topic);
 		CcpMapDecorator ccpMapDecorator = new CcpMapDecorator(body);
 		CcpMapDecorator internalMap = ccpMapDecorator.getInternalMap("message");
 		String data = internalMap.getAsString("data");
 		byte[] decode = Base64.getDecoder().decode(data);
 		String str = new String(decode);
 		CcpMapDecorator json = new CcpMapDecorator(str);
+		CcpProcess process = AsyncServices.catalog.getAsObject(topic);
 		process.execute(json);
+	}
+
+	@PostMapping("/testing")
+	public void onReceiveMessage2(@PathVariable("topic") String topic, @RequestBody Map<String, Object> json) {
+		CcpProcess process = AsyncServices.catalog.getAsObject(topic);
+		CcpMapDecorator md = new CcpMapDecorator(json);
+		process.execute(md);
 	}
 	
 }
