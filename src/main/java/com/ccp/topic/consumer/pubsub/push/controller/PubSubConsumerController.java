@@ -27,13 +27,13 @@ public class PubSubConsumerController {
 		byte[] decode = Base64.getDecoder().decode(data);
 		String str = new String(decode);
 		CcpMapDecorator json = new CcpMapDecorator(str);
-		CcpProcess process = AsyncServices.catalog.getAsObject(topic);
+		CcpProcess process = AsyncServices.getProcess(topic);
 		process.execute(json);
 	}
 
 	@PostMapping("/testing")
 	public void onReceiveMessage2(@PathVariable("topic") String topic, @RequestBody Map<String, Object> json) {
-		CcpProcess process = AsyncServices.catalog.getAsObject(topic);
+		CcpProcess process = AsyncServices.getProcess(topic);
 		CcpMapDecorator md = new CcpMapDecorator(json);
 		process.execute(md);
 	}
