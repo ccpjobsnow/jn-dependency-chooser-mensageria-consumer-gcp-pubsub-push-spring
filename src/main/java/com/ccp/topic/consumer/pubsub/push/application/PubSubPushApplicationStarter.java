@@ -18,7 +18,7 @@ import com.ccp.implementations.instant.messenger.telegram.InstantMessenger;
 import com.ccp.implementations.text.extractor.apache.tika.TextExtractor;
 import com.ccp.topic.consumer.pubsub.push.controller.PubSubConsumerController;
 import com.ccp.topic.consumer.pubsub.push.exception.handler.JnPubSubPushExceptionHandler;
-import com.jn.commons.JnBusinessEntity;
+import com.jn.commons.JnEntity;
 
 @EnableAutoConfiguration(exclude={MongoAutoConfiguration.class})
 @ComponentScan(basePackageClasses = {
@@ -42,7 +42,7 @@ public class PubSubPushApplicationStarter {
 				new Bulk(),
 				new Crud()
 		);
-		JnBusinessEntity.loadEntitiesMetadata();
+		JnEntity.loadEntitiesMetadata();
 
 		SpringApplication.run(PubSubPushApplicationStarter.class, args);
 		System.out.println(CcpDependencyInjection.classes.size());
