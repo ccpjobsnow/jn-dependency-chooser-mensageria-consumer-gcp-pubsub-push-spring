@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ccp.decorators.CcpMapDecorator;
 import com.ccp.jn.async.AsyncServices;
-import com.ccp.process.CcpProcess;
 
 @CrossOrigin
 @RestController
@@ -27,15 +26,13 @@ public class PubSubConsumerController {
 		byte[] decode = Base64.getDecoder().decode(data);
 		String str = new String(decode);
 		CcpMapDecorator json = new CcpMapDecorator(str);
-		CcpProcess process = AsyncServices.getProcess(topic);
-		process.execute(json);
+		AsyncServices.executeProcess(topic, json);
 	}
 
 	@PostMapping("/testing")
 	public void onReceiveMessage2(@PathVariable("topic") String topic, @RequestBody Map<String, Object> json) {
-		CcpProcess process = AsyncServices.getProcess(topic);
 		CcpMapDecorator md = new CcpMapDecorator(json);
-		process.execute(md);
+		AsyncServices.executeProcess(topic, md);
 	}
 	
 }
