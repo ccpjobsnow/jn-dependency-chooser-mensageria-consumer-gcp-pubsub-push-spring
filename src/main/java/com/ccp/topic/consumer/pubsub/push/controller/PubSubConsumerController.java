@@ -30,9 +30,9 @@ public class PubSubConsumerController {
 	}
 
 	@PostMapping("/testing")
-	public void onReceiveMessage2(@PathVariable("topic") String topic, @RequestBody Map<String, Object> json) {
+	public void onReceiveMessageTesting(@PathVariable("topic") String topic, @RequestBody Map<String, Object> json) {
 		CcpMapDecorator md = new CcpMapDecorator(json);
-		AsyncServices.executeProcess(topic, md);
+		AsyncServices.execute(topic, md);
 	}
 	
 }
