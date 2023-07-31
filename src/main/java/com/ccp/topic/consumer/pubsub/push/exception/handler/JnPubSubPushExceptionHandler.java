@@ -16,6 +16,6 @@ public class JnPubSubPushExceptionHandler {
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler({ Throwable.class })
 	public void handle(Throwable e) {
-		this.notifyError.sendErrorToSupport(e);
+		this.notifyError.execute(e);
 	}
 }

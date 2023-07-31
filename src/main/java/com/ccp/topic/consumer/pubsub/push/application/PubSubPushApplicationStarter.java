@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 import com.ccp.dependency.injection.CcpDependencyInjection;
 import com.ccp.implementations.db.bulk.elasticsearch.Bulk;
-import com.ccp.implementations.db.crud.elasticsearch.Crud;
+import com.ccp.implementations.db.dao.elasticsearch.Dao;
 import com.ccp.implementations.db.utils.elasticsearch.DbUtils;
 import com.ccp.implementations.db.utils.elasticsearch.Query;
 import com.ccp.implementations.emails.sendgrid.Email;
@@ -40,7 +40,7 @@ public class PubSubPushApplicationStarter {
 				new Query(),
 				new Http(),
 				new Bulk(),
-				new Crud()
+				new Dao()
 		);
 		JnEntity.loadEntitiesMetadata();
 
