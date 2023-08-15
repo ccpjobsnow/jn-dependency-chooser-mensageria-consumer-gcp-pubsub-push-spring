@@ -23,8 +23,7 @@ public class LoginTesting {
 	
 	public LoginTesting() {
 		CcpDependencyInjection.loadAllImplementationsProviders(
-				new Http()
-				,new DbUtils()
+				new DbUtils()
 				,new Http()
 				,new Dao()
 
@@ -39,12 +38,21 @@ public class LoginTesting {
 		
 		this.ourUserIsAccessingJobsNowByTheFirstTime();
 		String asyncTaskId = this.soOurUserRequestsToJobsNowToSendsLoginToken();
-		this.soOurUserWaitsJobsNowSendLoginTokenByEmail(asyncTaskId);
+		this.soOurUserWaitsJobsNowToSendHisLoginTokenByEmail(asyncTaskId);
+		String token = this.soOurUserOpenHisMailMessageAndGetsHisTokenThatJobsNowHasSentToHim();
+		//TODO to be continue
+	}
+
+
+	
+	
+	private String soOurUserOpenHisMailMessageAndGetsHisTokenThatJobsNowHasSentToHim() {
+		return null;
 		
 	}
 
 
-	private void soOurUserWaitsJobsNowSendLoginTokenByEmail(String asyncTaskId) {
+	private void soOurUserWaitsJobsNowToSendHisLoginTokenByEmail(String asyncTaskId) {
 		
 		for(int k = 0; k < 10; k++) {
 			CcpHttpResponse r1 = this.helper.ccpHttp.executeHttpRequest(BASE_URL
