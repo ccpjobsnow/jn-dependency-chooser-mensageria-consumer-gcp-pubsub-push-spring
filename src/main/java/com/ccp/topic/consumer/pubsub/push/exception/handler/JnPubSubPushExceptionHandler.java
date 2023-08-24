@@ -5,13 +5,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.ccp.dependency.injection.CcpDependencyInjection;
 import com.ccp.jn.async.business.NotifyError;
 
 @RestControllerAdvice
 public class JnPubSubPushExceptionHandler {
 
-	private NotifyError notifyError = CcpDependencyInjection.getInjected(NotifyError.class);
+	private NotifyError notifyError = new NotifyError();
 
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler({ Throwable.class })
