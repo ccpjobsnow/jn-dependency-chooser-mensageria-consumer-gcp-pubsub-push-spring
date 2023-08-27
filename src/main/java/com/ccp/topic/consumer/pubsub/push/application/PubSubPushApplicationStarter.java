@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
-import com.ccp.dependency.injection.CcpInstanceInjection;
+import com.ccp.dependency.injection.CcpDependencyInjection;
 import com.ccp.implementations.db.bulk.elasticsearch.Bulk;
 import com.ccp.implementations.db.dao.elasticsearch.Dao;
 import com.ccp.implementations.db.utils.elasticsearch.DbUtils;
@@ -30,7 +30,7 @@ public class PubSubPushApplicationStarter {
 
 	
 	public static void main(String[] args) {
-		CcpInstanceInjection.loadAllInstances
+		CcpDependencyInjection.loadAllDependencies
 		(
 				new Http(),
 				new JsonHandler(),
