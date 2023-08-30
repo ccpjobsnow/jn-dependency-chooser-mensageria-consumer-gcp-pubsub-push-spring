@@ -26,7 +26,7 @@ import com.ccp.topic.consumer.pubsub.push.exception.handler.JnPubSubPushExceptio
 		JnPubSubPushExceptionHandler.class
 })
 @SpringBootApplication
-public class PubSubPushApplicationStarter {
+public class JnPubSubPushApplicationStarter {
 
 	
 	public static void main(String[] args) {
@@ -44,7 +44,7 @@ public class PubSubPushApplicationStarter {
 				new Dao()
 		);
 
-		SpringApplication.run(PubSubPushApplicationStarter.class, args);
+		SpringApplication.run(JnPubSubPushApplicationStarter.class, args);
 	}
 
 	
