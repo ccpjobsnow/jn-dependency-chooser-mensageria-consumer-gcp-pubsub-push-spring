@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ccp.decorators.CcpMapDecorator;
-import com.ccp.jn.async.AsyncServices;
+import com.ccp.jn.async.JnAsyncBusiness;
 
 @CrossOrigin
 @RestController
 @RequestMapping(value = "/{topic}")
-public class PubSubConsumerController {
+public class JnGcpPubSubConsumerController {
 
 	@PostMapping
 	public void onReceiveMessage(@PathVariable("topic") String topic, @RequestBody Map<String, Object> body) {
@@ -26,13 +26,13 @@ public class PubSubConsumerController {
 		byte[] decode = Base64.getDecoder().decode(data);
 		String str = new String(decode);
 		CcpMapDecorator json = new CcpMapDecorator(str);
-		AsyncServices.executeProcess(topic, json);
+		JnAsyncBusiness.executeProcess(topic, json);
 	}
 
 	@PostMapping("/testing")
 	public void onReceiveMessageTesting(@PathVariable("topic") String topic, @RequestBody Map<String, Object> json) {
 		CcpMapDecorator md = new CcpMapDecorator(json);
-		AsyncServices.execute(topic, md);
+		JnAsyncBusiness.execute(topic, md);
 	}
 	
 }
