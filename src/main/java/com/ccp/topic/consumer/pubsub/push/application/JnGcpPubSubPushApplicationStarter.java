@@ -16,7 +16,6 @@ import com.ccp.implementations.file.bucket.gcp.CcpGcpFileBucket;
 import com.ccp.implementations.http.apache.mime.CcpApacheMimeHttp;
 import com.ccp.implementations.instant.messenger.telegram.CcpTelegramInstantMessenger;
 import com.ccp.implementations.json.gson.CcpGsonJsonHandler;
-import com.ccp.implementations.text.extractor.apache.tika.CcpApacheTikaTextExtractor;
 import com.ccp.topic.consumer.pubsub.push.controller.JnGcpPubSubConsumerController;
 import com.ccp.topic.consumer.pubsub.push.exception.handler.JnGcpPubSubPushExceptionHandler;
 
@@ -35,7 +34,6 @@ public class JnGcpPubSubPushApplicationStarter {
 				new CcpApacheMimeHttp(),
 				new CcpGsonJsonHandler(),
 				new CcpTelegramInstantMessenger(),
-				new CcpApacheTikaTextExtractor(),
 				new CcpGcpFileBucket(),
 				new CcpElasticSearchDbRequest(),
 				new CcpSendGridEmailSender(),
