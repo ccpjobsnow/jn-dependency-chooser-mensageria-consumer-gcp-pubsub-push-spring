@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ccp.decorators.CcpMapDecorator;
+import com.ccp.decorators.CcpJsonRepresentation;
 import com.ccp.jn.async.JnAsyncBusiness;
 
 @CrossOrigin
@@ -20,18 +20,18 @@ public class JnGcpPubSubConsumerController {
 
 	@PostMapping
 	public void onReceiveMessage(@PathVariable("topic") String topic, @RequestBody Map<String, Object> body) {
-		CcpMapDecorator ccpMapDecorator = new CcpMapDecorator(body);
-		CcpMapDecorator internalMap = ccpMapDecorator.getInternalMap("message");
+		CcpJsonRepresentation ccpMapDecorator = new CcpJsonRepresentation(body);
+		CcpJsonRepresentation internalMap = ccpMapDecorator.getInnerJson("message");
 		String data = internalMap.getAsString("data");
 		byte[] decode = Base64.getDecoder().decode(data);
 		String str = new String(decode);
-		CcpMapDecorator json = new CcpMapDecorator(str);
+		CcpJsonRepresentation json = new CcpJsonRepresentation(str);
 		JnAsyncBusiness.executeProcess(topic, json);
 	}
 
 	@PostMapping("/testing")
 	public void onReceiveMessageTesting(@PathVariable("topic") String topic, @RequestBody Map<String, Object> json) {
-		CcpMapDecorator md = new CcpMapDecorator(json);
+		CcpJsonRepresentation md = new CcpJsonRepresentation(json);
 		JnAsyncBusiness.execute(topic, md);
 	}
 	
