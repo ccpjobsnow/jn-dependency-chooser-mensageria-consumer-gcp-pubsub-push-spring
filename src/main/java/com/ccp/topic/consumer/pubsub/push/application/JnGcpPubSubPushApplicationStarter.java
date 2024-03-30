@@ -1,6 +1,5 @@
 package com.ccp.topic.consumer.pubsub.push.application;
 
-import com.ccp.dependency.injection.CcpDependencyInjection;
 import com.ccp.implementations.db.bulk.elasticsearch.CcpElasticSerchDbBulk;
 import com.ccp.implementations.db.dao.elasticsearch.CcpElasticSearchDao;
 import com.ccp.implementations.db.query.elasticsearch.CcpElasticSearchQueryExecutor;
@@ -14,23 +13,21 @@ import com.ccp.jn.async.business.JnAsyncBusinessNotifyError;
 import com.jn.commons.entities.JnEntityAsyncTask;
 
 public class JnGcpPubSubPushApplicationStarter {
-
-	
 	public static void main(String[] args) {
-		CcpDependencyInjection.loadAllDependencies
-		(
+		CcpGcpPubSubPushApplicationStarter.start(
+				new JnAsyncBusinessNotifyError(), 
+				new JnEntityAsyncTask(), 
+				args,
+				new CcpGcpFileBucket(),
 				new CcpApacheMimeHttp(),
 				new CcpGsonJsonHandler(),
-				new CcpTelegramInstantMessenger(),
-				new CcpGcpFileBucket(),
-				new CcpElasticSearchDbRequest(),
-				new CcpSendGridEmailSender(),
-				new CcpElasticSearchQueryExecutor(),
+				new CcpElasticSearchDao(),
 				new CcpElasticSerchDbBulk(),
-				new CcpElasticSearchDao()
-		);
-
-		CcpGcpPubSubPushApplicationStarter.main(new JnAsyncBusinessNotifyError(), new JnEntityAsyncTask(), args);
+				new CcpSendGridEmailSender(),
+				new CcpElasticSearchDbRequest(),
+				new CcpTelegramInstantMessenger(),
+				new CcpElasticSearchQueryExecutor()
+				);
 	}
 
 	
