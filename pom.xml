@@ -5,18 +5,13 @@
 	<groupId>com.ccp.jn</groupId>
 	<artifactId>jn-dependency-chooser-mensageria-consumer-gcp-pubsub-push-spring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+
 	<parent>
-		<groupId>com.google.cloud.samples</groupId>
-		<artifactId>shared-configuration</artifactId>
-		<version>1.2.0</version>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.2.4</version>
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<properties>
-		<springdoc-openapi-maven-plugin.version>1.4</springdoc-openapi-maven-plugin.version>
-		<maven.compiler.target>17</maven.compiler.target>
-		<maven.compiler.source>17</maven.compiler.source>
-		<spring-boot.version>3.2.1</spring-boot.version>
-		<springdoc.version>2.2.0</springdoc.version>
-	</properties>
 
 	<dependencies>
 		<dependency>
@@ -75,94 +70,17 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>com.ccp</groupId>
-			<artifactId>ccp-mensageria-consumer-gcp-pubsub-push-spring</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>2.0.12</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>${spring-boot.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>com.google.cloud.tools</groupId>
-				<artifactId>appengine-maven-plugin</artifactId>
-				<version>2.4.4</version>
-				<configuration>
-					<deploy.stopPreviousVersion>true</deploy.stopPreviousVersion>
-					<cloudSdkHome>C:\Users\Hp
-						Elitebook\AppData\Local\Google\Cloud
-						SDK\google-cloud-sdk</cloudSdkHome>
-					<projectId>jn-hmg-396517</projectId>
-					<version>sync-primeiro-deploy4</version>
-				</configuration>
-			</plugin>
-
-
-		</plugins>
-	</build>
-	<profiles>
-		<profile>
-			<id>integration</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.springframework.boot</groupId>
-						<artifactId>spring-boot-maven-plugin</artifactId>
-						<version>${spring-boot.version}</version>
-						<executions>
-							<execution>
-								<id>pre-integration-test</id>
-								<goals>
-									<goal>start</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>post-integration-test</id>
-								<goals>
-									<goal>stop</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.springdoc</groupId>
-						<artifactId>springdoc-openapi-maven-plugin</artifactId>
-						<version>${springdoc-openapi-maven-plugin.version}</version>
-						<executions>
-							<execution>
-								<phase>integration-test</phase>
-								<goals>
-									<goal>generate</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-							<apiDocsUrl>http://localhost:8080/api-docs</apiDocsUrl>
-							<outputFileName>openapi.json</outputFileName>
-							<outputDir>${project.build.directory}</outputDir>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 
 </project>
