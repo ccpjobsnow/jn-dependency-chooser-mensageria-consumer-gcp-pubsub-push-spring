@@ -28,6 +28,7 @@ import com.ccp.implementations.http.apache.mime.CcpApacheMimeHttp;
 import com.ccp.implementations.instant.messenger.telegram.CcpTelegramInstantMessenger;
 import com.ccp.implementations.json.gson.CcpGsonJsonHandler;
 import com.ccp.jn.async.business.JnAsyncBusinessNotifyError;
+import com.ccp.jn.async.business.factory.CcpJnAsyncBusinessFactory;
 import com.jn.commons.entities.JnEntityAsyncTask;
 
 @EnableAutoConfiguration(exclude={MongoAutoConfiguration.class})
@@ -41,6 +42,7 @@ public class JnGcpPubSubPushApplicationStarter {
 		CcpDependencyInjection.loadAllDependencies( 
 				new CcpElasticSearchQueryExecutor(),
 				new CcpTelegramInstantMessenger(),
+				new CcpJnAsyncBusinessFactory(),
 				new CcpElasticSearchDbRequest(),
 				new CcpSendGridEmailSender(),
 				new CcpElasticSerchDbBulk(),
