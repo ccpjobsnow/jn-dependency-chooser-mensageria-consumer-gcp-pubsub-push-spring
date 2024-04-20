@@ -1,4 +1,4 @@
-package com.ccp.topic.consumer.pubsub.push.application;
+package com.ccp.jn.topic.consumer.pubsub.push.application;
 
 
 import java.util.Map;
