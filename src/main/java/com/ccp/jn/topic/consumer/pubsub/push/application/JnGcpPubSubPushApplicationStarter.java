@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ccp.decorators.CcpJsonRepresentation;
 import com.ccp.decorators.CcpStringDecorator;
 import com.ccp.dependency.injection.CcpDependencyInjection;
-import com.ccp.exceptions.process.CcpAsyncTask;
 import com.ccp.implementations.db.bulk.elasticsearch.CcpElasticSerchDbBulk;
 import com.ccp.implementations.db.crud.elasticsearch.CcpElasticSearchCrud;
 import com.ccp.implementations.db.query.elasticsearch.CcpElasticSearchQueryExecutor;
@@ -29,6 +28,7 @@ import com.ccp.implementations.instant.messenger.telegram.CcpTelegramInstantMess
 import com.ccp.implementations.json.gson.CcpGsonJsonHandler;
 import com.ccp.jn.async.business.factory.CcpJnAsyncBusinessFactory;
 import com.ccp.jn.async.business.support.JnAsyncBusinessNotifyError;
+import com.ccp.jn.async.commons.JnAsyncMensageriaSender;
 import com.jn.commons.entities.JnEntityAsyncTask;
 
 @EnableAutoConfiguration(exclude={MongoAutoConfiguration.class})
@@ -60,13 +60,23 @@ public class JnGcpPubSubPushApplicationStarter {
 		String data = internalMap.getAsString("data");
 		String str = new CcpStringDecorator(data).text().asBase64().content;
 		CcpJsonRepresentation json = new CcpJsonRepresentation(str);
-		CcpAsyncTask.executeProcess(topic, json, JnEntityAsyncTask.INSTANCE, JnAsyncBusinessNotifyError.INSTANCE);
+		JnAsyncMensageriaSender.INSTANCE.executeProcesss(
+				JnEntityAsyncTask.INSTANCE, 
+				topic, 
+				json, 
+				JnAsyncBusinessNotifyError.INSTANCE
+				);
 	}
 
 	@PostMapping("/testing")
 	public void onReceiveMessageTesting(@PathVariable("topic") String topic, @RequestBody Map<String, Object> json) {
 		CcpJsonRepresentation md = new CcpJsonRepresentation(json);
-		CcpAsyncTask.executeProcess(topic, md, JnAsyncBusinessNotifyError.INSTANCE);
+		JnAsyncMensageriaSender.INSTANCE.executeProcesss(
+				JnEntityAsyncTask.INSTANCE, 
+				topic, 
+				md, 
+				JnAsyncBusinessNotifyError.INSTANCE
+				);
 	}
 
 }
