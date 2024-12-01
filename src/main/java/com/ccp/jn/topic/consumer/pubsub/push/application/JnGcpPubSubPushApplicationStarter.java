@@ -61,7 +61,7 @@ public class JnGcpPubSubPushApplicationStarter {
 		String str = new CcpStringDecorator(data).text().asBase64().content;
 		CcpJsonRepresentation json = new CcpJsonRepresentation(str);
 		JnAsyncMensageriaSender.INSTANCE.executeProcesss(
-				JnEntityAsyncTask.INSTANCE, 
+				JnEntityAsyncTask.ENTITY, 
 				topic, 
 				json, 
 				JnAsyncBusinessNotifyError.INSTANCE
@@ -72,7 +72,7 @@ public class JnGcpPubSubPushApplicationStarter {
 	public void onReceiveMessageTesting(@PathVariable("topic") String topic, @RequestBody Map<String, Object> json) {
 		CcpJsonRepresentation md = new CcpJsonRepresentation(json);
 		JnAsyncMensageriaSender.INSTANCE.executeProcesss(
-				JnEntityAsyncTask.INSTANCE, 
+				JnEntityAsyncTask.ENTITY, 
 				topic, 
 				md, 
 				JnAsyncBusinessNotifyError.INSTANCE
