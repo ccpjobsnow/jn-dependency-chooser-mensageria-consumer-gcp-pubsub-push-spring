@@ -26,9 +26,8 @@ import com.ccp.implementations.file.bucket.gcp.CcpGcpFileBucket;
 import com.ccp.implementations.http.apache.mime.CcpApacheMimeHttp;
 import com.ccp.implementations.instant.messenger.telegram.CcpTelegramInstantMessenger;
 import com.ccp.implementations.json.gson.CcpGsonJsonHandler;
-import com.ccp.jn.async.business.factory.CcpJnAsyncBusinessFactory;
-import com.ccp.jn.async.business.support.JnAsyncBusinessNotifyError;
-import com.ccp.jn.async.commons.JnAsyncMensageriaSender;
+import com.ccp.jn.commons.business.JnAsyncBusinessNotifyError;
+import com.ccp.jn.commons.mensageria.JnMensageriaReceiver;
 import com.jn.commons.entities.JnEntityAsyncTask;
 
 @EnableAutoConfiguration(exclude={MongoAutoConfiguration.class})
@@ -42,7 +41,6 @@ public class JnGcpPubSubPushApplicationStarter {
 		CcpDependencyInjection.loadAllDependencies( 
 				new CcpElasticSearchQueryExecutor(),
 				new CcpTelegramInstantMessenger(),
-				new CcpJnAsyncBusinessFactory(),
 				new CcpElasticSearchDbRequest(),
 				new CcpSendGridEmailSender(),
 				new CcpElasticSerchDbBulk(),
@@ -60,7 +58,7 @@ public class JnGcpPubSubPushApplicationStarter {
 		String data = internalMap.getAsString(JnEntityAsyncTask.Fields.data.name());
 		String str = new CcpStringDecorator(data).text().asBase64().content;
 		CcpJsonRepresentation json = new CcpJsonRepresentation(str);
-		JnAsyncMensageriaSender.INSTANCE.executeProcesss(
+		JnMensageriaReceiver.INSTANCE.executeProcesss(
 				JnEntityAsyncTask.ENTITY, 
 				topic, 
 				json, 
@@ -71,7 +69,7 @@ public class JnGcpPubSubPushApplicationStarter {
 	@PostMapping("/testing")
 	public void onReceiveMessageTesting(@PathVariable("topic") String topic, @RequestBody Map<String, Object> json) {
 		CcpJsonRepresentation md = new CcpJsonRepresentation(json);
-		JnAsyncMensageriaSender.INSTANCE.executeProcesss(
+		JnMensageriaReceiver.INSTANCE.executeProcesss(
 				JnEntityAsyncTask.ENTITY, 
 				topic, 
 				md, 
